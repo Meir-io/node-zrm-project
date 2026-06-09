@@ -1,9 +1,11 @@
 <script>
+
     import Header from '../components/Header.svelte';
     import Sidebar from '../components/Sidebar.svelte';
     import { fade, fly } from 'svelte/transition';
 
     let { role = 'student', children } = $props();
+
 </script>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-200">

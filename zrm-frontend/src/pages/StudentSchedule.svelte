@@ -1,4 +1,5 @@
 <script>
+
     import { onMount } from 'svelte';
     import { fly, fade, scale } from 'svelte/transition';
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
@@ -6,15 +7,12 @@
 
     import { authStore } from '../lib/auth.js';
 
-    // ─── Helpers ─────────────────────────────────────────────────────────────────
-    const hours = Array.from({ length: 14 }, (_, i) => i + 7); // 7 – 20
+    const hours = Array.from({ length: 14 }, (_, i) => i + 7);
     const days  = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
-    // Today's day name (for highlighting)
     const todayNames = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
     const todayName  = todayNames[new Date().getDay()];
 
-    // ─── Schedule blocks ─────────────────────────────────────────────────────────
     let classes = $state([]);
     let exams = $state([]);
 
@@ -29,7 +27,7 @@
                 const colors = ['blue', 'emerald', 'violet', 'amber', 'rose', 'cyan'];
 
                 data.forEach((c, i) => {
-                    // Parse "Lun & Mié 10:00–12:00"
+
                     const parts = c.schedule.split(' ');
                     const timePart = parts[parts.length - 1];
                     const [startStr, endStr] = timePart.split('–');
@@ -74,8 +72,6 @@
         }
     });
 
-    // ─── Exams ───────────────────────────────────────────────────────────────────
-
     const today = new Date().toISOString().split('T')[0];
 
     function formatDate(d) {
@@ -103,7 +99,6 @@
         return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400';
     }
 
-    // ─── Grid logic ──────────────────────────────────────────────────────────────
     function getClassForCell(day, hour) {
         return classes.find(c => c.day === day && c.startHour === hour) || null;
     }
@@ -112,7 +107,6 @@
     }
     function classSpan(c) { return c.endHour - c.startHour; }
 
-    // ─── Modal ───────────────────────────────────────────────────────────────────
     let selectedClass = $state(null);
     let modalOpen = $state(false);
 
@@ -124,6 +118,7 @@
         modalOpen = false;
         setTimeout(() => { selectedClass = null; }, 200);
     }
+
 </script>
 
 <DashboardLayout role="student">

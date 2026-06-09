@@ -1,4 +1,5 @@
 <script>
+
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import Modal from '../lib/components/Modal.svelte';
     import { Award, TrendingUp, ChevronDown, Maximize2 } from 'lucide-svelte';
@@ -79,6 +80,7 @@
         modalGrade = subject;
         modalOpen = true;
     }
+
 </script>
 
 <DashboardLayout role="student">

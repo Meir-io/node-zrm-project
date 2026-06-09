@@ -1,4 +1,5 @@
 <script>
+
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import Modal from '../lib/components/Modal.svelte';
     import { Search, UserPlus, Eye, Pencil, User } from 'lucide-svelte';
@@ -6,7 +7,6 @@
     import { onMount } from 'svelte';
     import { authStore } from '../lib/auth.js';
 
-    // ── State ──────────────────────────────────────────────────────────────────
     let search        = $state('');
     let activeTab     = $state('Todos');
     let addModalOpen  = $state(false);
@@ -17,13 +17,11 @@
     /** @type {null | typeof users[0]} */
     let selectedUser  = $state(null);
 
-    // Add-user form state
     let newName     = $state('');
     let newEmail    = $state('');
     let newRole     = $state('Estudiante');
     let newPassword = $state('');
 
-    // Edit-user form state
     let editName    = $state('');
     let editEmail   = $state('');
     let editRole    = $state('');
@@ -38,7 +36,7 @@
             });
             if (res.ok) {
                 const data = await res.json();
-                // Map the DB format to the component's expected format
+
                 users = data.map(u => ({
                     id: u.id,
                     name: `${u.first_name} ${u.last_name}`,
@@ -57,7 +55,6 @@
 
     const tabs = ['Todos', 'Estudiantes', 'Docentes'];
 
-    // ── Derived filtered list ──────────────────────────────────────────────────
     let filtered = $derived(
         users.filter(u => {
             const matchesTab =
@@ -73,7 +70,6 @@
         })
     );
 
-    // ── Helpers ────────────────────────────────────────────────────────────────
     function initials(name) {
         return name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
     }
@@ -110,7 +106,7 @@
             });
 
             if (res.ok) {
-                // Refresh list
+
                 const resUsers = await fetch('http://localhost:5000/api/admin/users', {
                     headers: authStore.getAuthHeaders()
                 });
@@ -168,6 +164,7 @@
         }
         editModalOpen = false;
     }
+
 </script>
 
 <DashboardLayout role="admin">

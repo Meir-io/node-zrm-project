@@ -1,4 +1,5 @@
 <script>
+
     import { onMount } from 'svelte';
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import { Shield, Filter, Search, AlertTriangle, CheckCircle, Info, XCircle } from 'lucide-svelte';
@@ -49,6 +50,7 @@
         };
         return map[t] || 'bg-slate-100 text-slate-700';
     }
+
 </script>
 
 <DashboardLayout role="admin">

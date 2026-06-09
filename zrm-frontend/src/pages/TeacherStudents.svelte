@@ -1,4 +1,5 @@
 <script>
+
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import Modal from '../lib/components/Modal.svelte';
     import { Search, Filter, TrendingUp, User, BookOpen, Calendar, FileText, ChevronRight, BarChart2 } from 'lucide-svelte';
@@ -7,7 +8,6 @@
 
     import { authStore } from '../lib/auth.js';
 
-    // ─── Data ────────────────────────────────────────────────────────────────────
     let students = $state([]);
     let groups = $state(['Todos']);
     const avatarColors = [
@@ -15,7 +15,6 @@
         'bg-rose-500', 'bg-sky-500', 'bg-teal-500', 'bg-pink-500', 'bg-indigo-500', 'bg-orange-500'
     ];
 
-    // ─── State ────────────────────────────────────────────────────────────────────
     let search = $state('');
     let selectedGroup = $state('Todos');
     let selectedStudent = $state(null);
@@ -25,7 +24,6 @@
     let chartInstance = $state(null);
     let studentNotes = $state({});
 
-    // ─── Derived ─────────────────────────────────────────────────────────────────
     let filtered = $derived(students.filter(s => {
         const matchSearch = s.name.toLowerCase().includes(search.toLowerCase()) ||
                             s.id.includes(search) ||
@@ -34,7 +32,6 @@
         return matchSearch && matchGroup;
     }));
 
-    // ─── Helpers ─────────────────────────────────────────────────────────────────
     function getInitials(name) {
         return name.split(' ').slice(0, 2).map(n => n[0]).join('').toUpperCase();
     }
@@ -177,7 +174,7 @@
             if (res.ok) {
                 const updated = await res.json();
                 subj.average = updated.average;
-                // Re-calculate the student average and status locally
+
                 if (selectedStudent) {
                     selectedStudent.average = parseFloat(updated.average) || 0;
                 }
@@ -188,6 +185,7 @@
             console.error(error);
         }
     }
+
 </script>
 
 <DashboardLayout role="teacher">

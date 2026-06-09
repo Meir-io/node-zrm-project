@@ -1,4 +1,5 @@
 <script>
+
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import { Users, UserCheck, TrendingUp, Award, Download, BarChart2, FileText, Calendar } from 'lucide-svelte';
     import { fly, fade } from 'svelte/transition';
@@ -6,7 +7,6 @@
 
     import { authStore } from '../lib/auth.js';
 
-    // ── Stat cards ─────────────────────────────────────────────────────────────
     let stats = $state([
         { label: 'Total Estudiantes',   value: '...', change: 'Activos',   icon: Users,      color: 'text-blue-600 dark:text-blue-400',   bg: 'bg-blue-50 dark:bg-blue-900/30',    border: 'border-blue-100 dark:border-blue-800' },
         { label: 'Total Docentes',      value: '...', change: 'Activos',    icon: UserCheck,   color: 'text-violet-600 dark:text-violet-400', bg: 'bg-violet-50 dark:bg-violet-900/30', border: 'border-violet-100 dark:border-violet-800' },
@@ -14,7 +14,6 @@
         { label: 'Tasa de Aprobación',  value: '94%', change: 'Meta: 90%',      icon: Award,      color: 'text-amber-600 dark:text-amber-400',  bg: 'bg-amber-50 dark:bg-amber-900/30',   border: 'border-amber-100 dark:border-amber-800' },
     ]);
 
-    // ── Generate report form state ─────────────────────────────────────────────
     let chkCalificaciones = $state(true);
     let chkAsistencia     = $state(false);
     let chkRendimiento    = $state(false);
@@ -27,7 +26,6 @@
         setTimeout(() => { generating = false; }, 1800);
     }
 
-    // ── Recent reports ─────────────────────────────────────────────────────────
     const recentReports = [
         { name: 'Reporte de Calificaciones 2025-A', by: 'Admin Sistema', date: '2025-06-01', type: 'Calificaciones' },
         { name: 'Lista de Asistencia Mayo',         by: 'Lic. García',   date: '2025-05-31', type: 'Asistencia' },
@@ -42,7 +40,6 @@
         'Rendimiento':    'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300',
     };
 
-    // ── Chart ──────────────────────────────────────────────────────────────────
     /** @type {HTMLCanvasElement} */
     let chartCanvas = $state(null);
 
@@ -131,6 +128,7 @@
             }
         });
     });
+
 </script>
 
 <DashboardLayout role="admin">

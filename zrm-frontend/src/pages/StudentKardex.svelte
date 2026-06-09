@@ -1,4 +1,5 @@
 <script>
+
     import { onMount } from 'svelte';
     import { fly, fade, scale } from 'svelte/transition';
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
@@ -7,13 +8,12 @@
 
     import { authStore } from '../lib/auth.js';
 
-    // --- State ---
     let activeSemester = $state(0);
-    let downloadState = $state('idle'); // 'idle' | 'loading' | 'done'
+    let downloadState = $state('idle');
     let chartCanvas = $state(null);
+    /** @type {Chart | null} */
     let chartInstance = null;
 
-    // --- Student Info ---
     let student = $state({
         name: 'Cargando...',
         id: '...',
@@ -23,10 +23,8 @@
         creditsEarned: 0,
     });
 
-    // --- Semester Data ---
     let semesters = $state([]);
 
-    // --- Derived: semester averages ---
     const semesterAverages = $derived(semesters.map(sem => {
         const total = sem.subjects.reduce((a, s) => a + s.grade, 0);
         return sem.subjects.length ? +(total / sem.subjects.length).toFixed(2) : 0;
@@ -39,7 +37,7 @@
 
     onMount(async () => {
         try {
-            // Get Student Info
+
             let currentUser = null;
             authStore.subscribe(s => { if (s) currentUser = s.user; })();
             if (currentUser) {
@@ -47,7 +45,6 @@
                 student.id = currentUser.id;
             }
 
-            // Get Kardex
             const resKardex = await fetch('http://localhost:5000/api/student/kardex', { headers: authStore.getAuthHeaders() });
             if (resKardex.ok) {
                 const kardexData = await resKardex.json();
@@ -73,7 +70,6 @@
                 semesters = sems;
             }
 
-            // Get Performance
             const resPerf = await fetch('http://localhost:5000/api/student/performance', { headers: authStore.getAuthHeaders() });
             if (resPerf.ok) {
                 const perfData = await resPerf.json();
@@ -85,7 +81,6 @@
         }
     });
 
-    // --- Grade helpers ---
     function gradeColor(g) {
         if (g >= 8) return 'text-emerald-600 dark:text-emerald-400';
         if (g >= 6) return 'text-amber-500 dark:text-amber-400';
@@ -102,7 +97,6 @@
         return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400';
     }
 
-    // --- Download handler ---
     function handleDownload() {
         if (downloadState !== 'idle') return;
         downloadState = 'loading';
@@ -112,7 +106,6 @@
         }, 1000);
     }
 
-    // --- Chart: GPA line ---
     $effect(() => {
         if (!chartCanvas) return;
         if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
@@ -147,6 +140,7 @@
         });
         return () => { if (chartInstance) { chartInstance.destroy(); chartInstance = null; } };
     });
+
 </script>
 
 <DashboardLayout role="student">

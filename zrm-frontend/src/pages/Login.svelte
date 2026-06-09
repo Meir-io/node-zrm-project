@@ -1,4 +1,5 @@
 <script>
+
     import { link, push } from 'svelte-spa-router';
     import { Lock, Mail, ArrowRight } from 'lucide-svelte';
     import { fly, scale } from 'svelte/transition';

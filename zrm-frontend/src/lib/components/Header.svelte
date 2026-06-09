@@ -1,4 +1,5 @@
 <script>
+
     import { link, push } from 'svelte-spa-router';
     import { authUser, authStore } from '../auth.js';
     import { isDark, toggleTheme } from '../theme.js';
@@ -19,6 +20,7 @@
         else if ($authUser.role === 'teacher') push('/teacher');
         else push('/student');
     }
+
 </script>
 
 <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-gray-200 dark:border-slate-800">

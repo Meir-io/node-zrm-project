@@ -1,4 +1,5 @@
 <script>
+
     import { onMount } from 'svelte';
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import { Save, Download, Eye, CheckCircle } from 'lucide-svelte';
@@ -12,7 +13,7 @@
 
     onMount(async () => {
         try {
-            // Load Teacher's Groups
+
             const res = await fetch('http://localhost:5000/api/teacher/groups', {
                 headers: authStore.getAuthHeaders()
             });
@@ -49,7 +50,7 @@
                     p3: s.p3 != null ? parseFloat(s.p3) : '',
                     final: s.final != null ? parseFloat(s.final) : '',
                     average: s.average != null ? parseFloat(s.average) : '-',
-                    status: s.status === 'ACTIVE' ? 'Pendiente' : 'Finalizado' // Simplified
+                    status: s.status === 'ACTIVE' ? 'Pendiente' : 'Finalizado'
                 }));
             }
         } catch (e) {
@@ -130,6 +131,7 @@
         link.click();
         document.body.removeChild(link);
     }
+
 </script>
 
 <DashboardLayout role="teacher">

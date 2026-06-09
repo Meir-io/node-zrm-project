@@ -1,4 +1,5 @@
 <script>
+
     import { onMount } from 'svelte';
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import Modal from '../lib/components/Modal.svelte';
@@ -22,7 +23,7 @@
 
     onMount(async () => {
         try {
-            // Load dashboard grades
+
             const resGrades = await fetch('http://localhost:5000/api/student/dashboard', { headers: authStore.getAuthHeaders() });
             if (resGrades.ok) {
                 const data = await resGrades.json();
@@ -34,7 +35,6 @@
                 }));
             }
 
-            // Load Full Kardex for charts
             const resKardex = await fetch('http://localhost:5000/api/student/kardex', { headers: authStore.getAuthHeaders() });
             if (resKardex.ok) {
                 const kardexData = await resKardex.json();
@@ -75,7 +75,9 @@
 
     let chartLabels = $state([]);
     let chartData = $state([]);
+    /** @type {Chart | null} */
     let chartInstanceBar = null;
+    /** @type {Chart | null} */
     let chartInstanceLine = null;
 
     $effect(() => {
@@ -106,7 +108,6 @@
         if (chartCanvas && chartLabels.length > 0) {
             if (chartInstanceLine) chartInstanceLine.destroy();
 
-            // Pad to at least 2 points so it looks like a graph
             let renderLabels = [...chartLabels];
             let renderData = [...chartData];
             if (renderLabels.length === 1) {
@@ -143,6 +144,7 @@
             });
         }
     });
+
 </script>
 
 <DashboardLayout role="student">

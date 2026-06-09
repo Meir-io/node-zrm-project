@@ -1,4 +1,5 @@
 <script>
+
     import { link } from 'svelte-spa-router';
     import {
         LayoutDashboard,
@@ -54,6 +55,7 @@
     ];
 
     let links = $derived(role === 'admin' ? adminLinks : role === 'teacher' ? teacherLinks : studentLinks);
+
 </script>
 
 <aside class="w-64 bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 hidden md:flex flex-col h-[calc(100vh-4rem)] sticky top-16">
@@ -73,4 +75,5 @@
                 </a>
             {/each}
         </div>
+    </div>
 </aside>

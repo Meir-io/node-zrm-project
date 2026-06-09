@@ -1,4 +1,5 @@
 <script>
+
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import {
         Mail, Phone, Clock, MapPin, Edit3, Save, X,
@@ -9,7 +10,6 @@
     import { authStore } from '../lib/auth.js';
     import { onMount } from 'svelte';
 
-    // ─── State ─────────────────────────────────────────────────────────────────
     let editMode = $state(false);
 
     let form = $state({
@@ -24,7 +24,6 @@
 
     let initials = $state('MG');
 
-    // Snapshot for cancel
     let snapshot = $state({ ...form });
 
     function startEdit() {
@@ -41,7 +40,6 @@
         editMode = false;
     }
 
-    // ─── Data ──────────────────────────────────────────────────────────────────
     let groups = $state([]);
 
     const achievements = [
@@ -111,6 +109,7 @@
             console.error('Failed to load profile data', error);
         }
     });
+
 </script>
 
 <DashboardLayout role="teacher">

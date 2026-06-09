@@ -1,4 +1,5 @@
 <script>
+
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import { link } from 'svelte-spa-router';
     import { Users, BookOpen, FileText, Calendar } from 'lucide-svelte';
@@ -19,7 +20,7 @@
 
     onMount(async () => {
         try {
-            // Load Groups
+
             const resGroups = await fetch('http://localhost:5000/api/teacher/groups', { headers: authStore.getAuthHeaders() });
             if (resGroups.ok) {
                 const data = await resGroups.json();
@@ -28,12 +29,11 @@
                     name: `${g.subject_name} - ${g.name}`,
                     schedule: g.schedule,
                     room: g.room,
-                    students: 'Varios' // We would need another endpoint for exact count, keeping it simple
+                    students: 'Varios'
                 }));
                 stats[0].value = groups.length.toString();
             }
 
-            // Load Events
             const resEvents = await fetch('http://localhost:5000/api/events', { headers: authStore.getAuthHeaders() });
             if (resEvents.ok) {
                 const data = await resEvents.json();
@@ -44,6 +44,7 @@
             console.error('Error fetching teacher dashboard data:', e);
         }
     });
+
 </script>
 
 <DashboardLayout role="teacher">

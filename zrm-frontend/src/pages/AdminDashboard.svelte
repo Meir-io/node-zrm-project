@@ -1,4 +1,5 @@
 <script>
+
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import { push } from 'svelte-spa-router';
     import { Users, UserPlus, BookOpen, ShieldCheck, Settings, UserCircle, Activity, FileText, Database, BarChart2, Shield, Bell } from 'lucide-svelte';
@@ -43,7 +44,7 @@
             if (res.ok) {
                 isEventModalOpen = false;
                 newEvent = { title: '', description: '', type: 'Institución', target_role: 'ALL' };
-                // Optionally show a success toast here
+
             }
         } catch(err) {
             console.error('Error creating event:', err);
@@ -64,6 +65,7 @@
         { title: 'Respaldo del sistema completado exitosamente', desc: 'Tarea automatizada • Hace 3 horas', icon: ShieldCheck, color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/30' },
         { title: 'Reporte mensual generado', desc: 'Sistema • Hace 5 horas', icon: BarChart2, color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/30' }
     ];
+
 </script>
 
 <DashboardLayout role="admin">

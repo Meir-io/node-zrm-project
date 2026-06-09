@@ -1,4 +1,5 @@
 <script>
+
     import { onMount } from 'svelte';
     import { fly, fade } from 'svelte/transition';
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
@@ -7,7 +8,6 @@
 
     import { authStore } from '../lib/auth.js';
 
-    // ─── Hero Stats ───────────────────────────────────────────────────────────────
     let stats = $state([
         { icon: TrendingUp, label: 'Promedio General',    value: '0',   sub: 'Escala 0 – 10',        color: 'text-blue-600 dark:text-blue-400',    bg: 'bg-blue-50 dark:bg-blue-900/20',    border: 'border-blue-200 dark:border-blue-800' },
         { icon: BookCheck,  label: 'Materias Cursadas',  value: '0',    sub: 'Total Histórico',            color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-900/20', border: 'border-emerald-200 dark:border-emerald-800' },
@@ -15,24 +15,24 @@
         { icon: Users,      label: 'Posición en Grupo',   value: 'N/A',  sub: 'Top 10% del grupo',     color: 'text-amber-600 dark:text-amber-400',  bg: 'bg-amber-50 dark:bg-amber-900/20',  border: 'border-amber-200 dark:border-amber-800' },
     ]);
 
-    // ─── Best / Worst subjects ────────────────────────────────────────────────────
     let allSubjects = $state([]);
     let best  = $derived([...allSubjects].sort((a, b) => b.grade - a.grade).slice(0, 3));
     let worst = $derived([...allSubjects].sort((a, b) => a.grade - b.grade).slice(0, 3));
 
-    // ─── Chart canvas refs ────────────────────────────────────────────────────────
     let lineCanvas  = $state(null);
     let radarCanvas = $state(null);
     let barCanvas   = $state(null);
 
+    /** @type {Chart | null} */
     let lineChart  = null;
+    /** @type {Chart | null} */
     let radarChart = null;
+    /** @type {Chart | null} */
     let barChart   = null;
 
-    // ─── Mount: create all 3 charts and fetch data ──────────────────────────────
     onMount(async () => {
         try {
-            // Fetch Performance Stats
+
             const resPerf = await fetch('http://localhost:5000/api/student/performance', { headers: authStore.getAuthHeaders() });
             if (resPerf.ok) {
                 const perfData = await resPerf.json();
@@ -41,11 +41,10 @@
                 stats[2].value = perfData.accumulated_credits || '0';
             }
 
-            // Fetch Kardex for Charts
             const resKardex = await fetch('http://localhost:5000/api/student/kardex', { headers: authStore.getAuthHeaders() });
             let semesterLabels = [];
             let semesterAverages = [];
-            let gradeDist = [0, 0, 0, 0, 0]; // 5, 6, 7, 8, 9-10
+            let gradeDist = [0, 0, 0, 0, 0];
 
             if (resKardex.ok) {
                 const kardexData = await resKardex.json();
@@ -170,6 +169,7 @@
             barChart?.destroy();
         };
     });
+
 </script>
 
 <DashboardLayout role="student">

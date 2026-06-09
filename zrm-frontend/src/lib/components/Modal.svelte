@@ -1,4 +1,5 @@
 <script>
+
     import { X } from 'lucide-svelte';
     import { fade, scale } from 'svelte/transition';
 
@@ -7,6 +8,7 @@
     function close() {
         isOpen = false;
     }
+
 </script>
 
 {#if isOpen}

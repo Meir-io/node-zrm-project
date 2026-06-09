@@ -1,4 +1,5 @@
 <script>
+
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import Modal from '../lib/components/Modal.svelte';
     import { authStore } from '../lib/auth.js';
@@ -6,28 +7,19 @@
     import { Users, MapPin, BookOpen, FileText, Calendar, Clock, AlertTriangle } from 'lucide-svelte';
     import { fly, fade, scale } from 'svelte/transition';
 
-    // ─── Schedule Data ─────────────────────────────────────────────────────────
-    // Grid: rows = hours 7–18 (7am–6pm), cols = Mon–Fri
-    // Each block: col (1–5), rowStart (hour index 0=7am), rowSpan (hours), ...
     const DAY_LABELS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
     const START_HOUR = 7;
-    const END_HOUR = 19; // exclusive
+    const END_HOUR = 19;
     const HOURS = Array.from({ length: END_HOUR - START_HOUR }, (_, i) => START_HOUR + i);
 
     let subjects = $state({});
     let classes = $state([]);
 
-    // col: 0=Lun, 1=Mar, 2=Mie, 3=Jue, 4=Vie
-    // rowStart: hour offset from START_HOUR (0 = 7am)
-    // rowSpan: duration in hours
-
     let upcomingEvaluations = $state([]);
 
-    // ─── State ─────────────────────────────────────────────────────────────────
     let selectedClass = $state(null);
     let modalOpen = $state(false);
 
-    // Eval creation state
     let modalEvalOpen = $state(false);
     let newEval = $state({
         title: '',
@@ -170,6 +162,7 @@
             isSavingEval = false;
         }
     }
+
 </script>
 
 <DashboardLayout role="teacher">

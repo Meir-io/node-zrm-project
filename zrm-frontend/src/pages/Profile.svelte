@@ -1,4 +1,5 @@
 <script>
+
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import { authUser } from '../lib/auth.js';
     import { UserCircle, Mail, Phone, MapPin, Shield, Edit3, Save, X } from 'lucide-svelte';
@@ -10,7 +11,6 @@
     let currentName = $derived($authUser?.name || ($authUser ? `${$authUser.first_name} ${$authUser.last_name}` : 'Usuario'));
     let initials = $derived(currentName.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase());
 
-    // Role display mappings
     const roleLabels = {
         admin: 'Administrador del Sistema',
         teacher: 'Docente Académico',
@@ -39,7 +39,7 @@
     }
 
     function saveEdit() {
-        // Here you would normally dispatch an update to a backend
+
         editMode = false;
     }
 
@@ -47,6 +47,7 @@
         form = { ...snapshot };
         editMode = false;
     }
+
 </script>
 
 <DashboardLayout role={currentRole}>

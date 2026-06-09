@@ -1,24 +1,21 @@
 <script>
+
     import DashboardLayout from '../lib/layouts/DashboardLayout.svelte';
     import { Building2, BookOpen, Bell, Shield, CheckCircle, Eye, EyeOff } from 'lucide-svelte';
     import { fly, fade } from 'svelte/transition';
 
-    // ── Institutional Info ─────────────────────────────────────────────────────
     let schoolName    = $state('Centro Escolar Zenith');
     let address       = $state('Av. Educación 1024, Col. Universidad, CDMX');
     let phone         = $state('+52 55 1234 5678');
     let contactEmail  = $state('contacto@zenith.edu.mx');
 
-    // ── Academic Config ────────────────────────────────────────────────────────
     let currentPeriod    = $state('2025-B');
     let maxStudentsGroup = $state(35);
 
-    // ── Notifications ──────────────────────────────────────────────────────────
     let emailNotifs   = $state(true);
     let systemAlerts  = $state(true);
     let maintenanceMode = $state(false);
 
-    // ── Security ───────────────────────────────────────────────────────────────
     let oldPassword     = $state('');
     let newPassword     = $state('');
     let confirmPassword = $state('');
@@ -26,8 +23,7 @@
     let showNew         = $state(false);
     let showConfirm     = $state(false);
 
-    // ── Toast state ────────────────────────────────────────────────────────────
-    let toastSection = $state('');   // which section saved most recently
+    let toastSection = $state('');
 
     function save(section) {
         toastSection = section;
@@ -39,6 +35,7 @@
         save('security');
         oldPassword = ''; newPassword = ''; confirmPassword = '';
     }
+
 </script>
 
 <DashboardLayout role="admin">
